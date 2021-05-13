@@ -6,11 +6,8 @@
 #include"quicksort.h"
 #include"heapsort.h"
 #include"mergesort.h"
-#define datacnt 520000
+#define datacnt 100000
 
-
-
-char **word;
 
 void swapN(int arr[], int a, int b){
     int tmp;
@@ -26,6 +23,9 @@ void swapS(char **arr, int a, int b){
     strcpy(arr[b],tmp);
 }
 
+char **word;
+
+int *number;
 
 int main()
 {
@@ -38,7 +38,7 @@ int main()
 	unsigned long diff;//儲存計算的時間差
 
     int i, j;
-    int *number = malloc(sizeof(int)*datacnt);
+    number = malloc(sizeof(int)*datacnt);
     int *data = malloc(sizeof(int)*datacnt);
     char **data2 = malloc(sizeof(char *)*datacnt);
     word = malloc(sizeof(char *)*datacnt);
@@ -60,7 +60,7 @@ int main()
     fclose(xfile);//
 
     yfile = fopen("dataset1.txt", "r");
-    //FILE *ifile = yfile;
+   
     for(i = 0; i < datacnt; i ++)
     {
         fscanf(yfile,"%d", &number[i]);
@@ -83,7 +83,7 @@ int main()
     fclose(afile);
 
     bfile = fopen("dataset2.txt", "r");
-   // FILE *jfile = bfile;
+   
     for(i = 0; i < datacnt; i ++)
     {
         *(word+i) = malloc(sizeof(char)*101);
@@ -102,13 +102,13 @@ int main()
     gettimeofday(&end, NULL);//結束
     diff = 1000000 * (end.tv_sec - start.tv_sec) + end.tv_usec - start.tv_usec;//實際時間差
 	printf("heap_sortS %f sec\n", diff / 1000000.0);//印出結果
-    fclose(yfile);//不用關B?
+    fclose(yfile);
 
 
 
 
     yfile = fopen("dataset1.txt", "r");
-   // ifile = yfile;
+   
     for(i = 0; i < datacnt; i ++)
     {
         fscanf(yfile,"%d", &number[i]);
@@ -116,7 +116,7 @@ int main()
     fclose(bfile);
 
     bfile = fopen("dataset2.txt", "r");
-    //jfile = bfile;
+   
     for(i = 0; i < datacnt; i ++)
     {
         fscanf(bfile, "%s", *(word+i));
@@ -137,7 +137,7 @@ int main()
 
 
     yfile = fopen("dataset1.txt", "r");
-   // ifile = yfile;
+   
     for(i = 0; i < datacnt; i ++)
     {
         fscanf(yfile,"%d", &number[i]);
@@ -145,7 +145,7 @@ int main()
     fclose(bfile);
     
     bfile = fopen("dataset2.txt", "r");
-    //jfile = bfile;
+
     
      for(i = 0; i < datacnt; i ++)
     {
@@ -173,11 +173,9 @@ int main()
     {
         free(*(word+i));
     }
-
+    
     fclose(yfile);
     fclose(bfile);
-   // fclose(ifile);
-    //fclose(jfile);
     free(data);
     free(data2);
     free(word);
